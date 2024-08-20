@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    gap: 16px; /* Adjust the gap between columns as needed */
+  }
+  
+  .left-column {
+    flex-grow: 1;
+    min-width: 300px; /* Adjust the minimum width as needed */
+  }
+  
+  .right-column {
+    flex-grow: 2;
+    min-width: 300px; /* Adjust the minimum width as needed */
+  }
