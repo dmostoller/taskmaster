@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { fetchTaskLists, createTaskList, deleteTaskList } from '../api';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { PencilSquareIcon } from '@heroicons/react/24/solid';
-
 import axios from 'axios';
 
-const TaskList = ({ onSelect, selectedTaskListId, setSelectedTaskListName, setSearchQuery }) => {
-  const [taskLists, setTaskLists] = useState([]);
+
+const TaskList = ({ onSelect, selectedTaskListId, setSelectedTaskListName, setSearchQuery, taskLists, setTaskLists }) => {
   const [editingTaskListId, setEditingTaskListId] = useState(null);
   const [newListName, setNewListName] = useState('');
   const [newName, setNewName] = useState('');
-
-  useEffect(() => {
-    fetchTaskLists().then(response => setTaskLists(response.data));
-  }, []);
 
   const handleCreateList = () => {
     createTaskList({ name: newListName }).then(response => {
@@ -24,7 +19,6 @@ const TaskList = ({ onSelect, selectedTaskListId, setSelectedTaskListName, setSe
       setSelectedTaskListName(newList.name);
     });
   };
-
 
   const handleDeleteList = (taskListId) => {
     deleteTaskList(taskListId).then(() => {
@@ -61,7 +55,7 @@ const TaskList = ({ onSelect, selectedTaskListId, setSelectedTaskListName, setSe
           <li
           key={list.id}
           className={`flex items-center justify-between p-2 hover:bg-gray-700 rounded ${selectedTaskListId === list.id ? 'bg-gray-700' : ''}`}>   
-        {editingTaskListId === list.id ? (
+            {editingTaskListId === list.id ? (
             <div>
               <input
                 type="text"
@@ -72,7 +66,7 @@ const TaskList = ({ onSelect, selectedTaskListId, setSelectedTaskListName, setSe
                 }}
                 className="bg-gray-800 text-white p-2 rounded"/>
               <button onClick={() => handleSaveClick(list.id, newName)} 
-          className="border border-violet-500 text-violet-500 hover:bg-violet-500 hover:text-white font-bold ml-2 py-2 px-10 rounded">
+                className="border border-violet-500 text-violet-500 hover:bg-violet-500 hover:text-white font-bold ml-2 py-2 px-10 rounded">
                 Save
               </button>
             </div>
@@ -80,26 +74,25 @@ const TaskList = ({ onSelect, selectedTaskListId, setSelectedTaskListName, setSe
             <>
             <span
               onClick={() => handleTaskListClick(list.id)}
-              className="cursor-pointer flex-grow"
-            >
+              className="cursor-pointer flex-grow">
               {list.name}
             </span>
             {selectedTaskListId == list.id && 
-              <>
+            <>
             <button onClick={() => handleEditClick(list.id, list.name)} className="text-violet-500 hover:text-violet-700 ml-2">
-            <PencilSquareIcon className="h-5 w-5" />
-          </button>
-          <button
-            onClick={() => handleDeleteList(list.id)}
-            className="text-red-500 hover:text-red-700 ml-2">
-            <XMarkIcon className="h-5 w-5" />
-          </button>
-          </>}
-          </>
+              <PencilSquareIcon className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => handleDeleteList(list.id)}
+              className="text-red-500 hover:text-red-700 ml-2">
+              <XMarkIcon className="h-5 w-5" />
+            </button>
+            </>}
+            </>
           )}
         </li>
       ))}
-    </ul>
+      </ul>
       <div className="flex items-center">
         <input
           type="text"

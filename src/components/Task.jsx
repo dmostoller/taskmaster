@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchTasks, createTask, deleteTask, fetchTaskLists, markTaskComplete, markTaskIncomplete } from '../api';
+import { fetchTasks, createTask, deleteTask, markTaskComplete, markTaskIncomplete } from '../api';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 const Task = ({ taskListId, searchQuery, taskListName }) => {
@@ -36,7 +36,6 @@ const Task = ({ taskListId, searchQuery, taskListName }) => {
       setTasks(tasks.map(task => task.id === taskId ? response.data : task));
     });
   };
-
 
   const filteredTasks = tasks.filter(task => task.title.toLowerCase().includes(searchQuery.toLowerCase()));
   const sortedTasks = [...filteredTasks].sort((a, b) => a.completed - b.completed);

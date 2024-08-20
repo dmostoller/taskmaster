@@ -10,7 +10,7 @@ const Footer = () => {
         <FaCss3Alt className="h-8 w-8 text-blue-700" />
         <SiDjango className="h-8 w-8 text-green-500" />
       </div>
-      <p className="text-md mb-1">Created by David Mostoller</p>
+      <p className="text-md mb-1">Created by <a href='https://davidmostoller.com' target='_blank'>David Mostoller</a></p>
         <p className="text-xs mb-4 mt-0">Powered by React, Tailwind CSS, and Django</p>
     </footer>
   );
